@@ -32,8 +32,15 @@ namespace Models
             this.DataEntrada = DataEntrada;
             this.Pago = false;
             
-            // Reserva o Quarto:
-            this.Quarto.Reservado = true;
+            // Checa o Quarto:
+            if (this.Quarto.Reservado == false)
+            {
+                this.Quarto.Reservado = true;
+            }
+            else
+            {
+                throw new System.Exception("Quarto já consta reservado.");
+            }
 
             Context db = new Context();
             db.Reservas.Add(this);
@@ -68,8 +75,7 @@ namespace Models
         public static void AlterarReserva(
             int Id,
             DateTime DataEntrada,
-            int IdQuarto,
-            int IdHospede
+            int IdQuarto
         )
         {
             try
@@ -77,7 +83,6 @@ namespace Models
                 Reserva reserva = ReservaGetById(Id);
                 reserva.DataEntrada = DataEntrada;
                 reserva.IdQuarto = IdQuarto;
-                reserva.IdHospede = IdHospede;
 
                 Context db = new Context();
                 db.Reservas.Update(reserva);
@@ -91,25 +96,39 @@ namespace Models
 
         public static void ValorTotal(int Id, int IdQuarto, int IdDespesa)
         {
-            Reserva reserva = ReservaGetById(Id);
-            Quarto quarto = Quarto.GetQuartoById(Id);
-            Despesa despesa = Despesa.DespesaGetById(Id);
+            try
+            {
+                Reserva reserva = ReservaGetById(Id);
+                Quarto quarto = Quarto.GetQuartoById(Id);
+                Despesa despesa = Despesa.DespesaGetById(Id);
 
-            reserva.ValorTotalReserva = quarto.ValorQuarto + despesa.ValorTotalDespesa;
+                reserva.ValorTotalReserva = quarto.ValorQuarto + despesa.ValorTotalDespesa;
 
-            Context db = new Context();
-            db.Reservas.Update(reserva);
-            db.SaveChanges();
+                Context db = new Context();
+                db.Reservas.Update(reserva);
+                db.SaveChanges();
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
+            }
         }
 
         public static void EfetuarPagamento(int Id)
         {
-            Reserva reserva = ReservaGetById(Id);
-            reserva.Pago = true;
+            try
+            {
+                Reserva reserva = ReservaGetById(Id);
+                reserva.Pago = true;
 
-            Context db = new Context();
-            db.Reservas.Update(reserva);
-            db.SaveChanges();
+                Context db = new Context();
+                db.Reservas.Update(reserva);
+                db.SaveChanges();
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
+            }
         }
 
         public static void RegistrarSaida(int Id)
@@ -213,6 +232,32 @@ namespace Models
             catch
             {
                 throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
+            }
+        }
+
+        // Este método tem como função, checar se teremos conflito na agenda de reserva.
+        public static bool ChecaConflitoReserva(
+            int IdAtual,
+            int IdHospede,
+            int IdQuarto,
+            DateTime DataEntrada
+        )
+        {
+            try
+            {
+                IEnumerable<Reserva> reservas = 
+                    from Reserva in Reserva.GetReservas()
+                    where Reserva.DataEntrada == DataEntrada
+                    && Reserva.IdHospede == IdHospede
+                    && Reserva.IdQuarto == IdQuarto
+                    && Reserva.Id != IdAtual
+                select Reserva;
+
+                return reservas.Count() > 0;
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos efetuar a conexão com o banco de dados.");
             }
         }
     }
