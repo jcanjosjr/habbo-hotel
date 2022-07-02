@@ -12,7 +12,7 @@ namespace Models
         public bool Reservado { get; set; }
 		public string Descricao { get; set; }
 		public string NroQuarto { get; set; }
-        public float ValorQuarto { get; set; }
+        public double ValorQuarto { get; set; }
 
         public Quarto() { }
 
@@ -20,7 +20,7 @@ namespace Models
             string Andar,
             string NroQuarto,
             string Descricao,
-            float ValorQuarto
+            double ValorQuarto
         )
         {
             this.Andar = Andar;
@@ -62,17 +62,13 @@ namespace Models
 
         public static void AlterarQuarto(
             int Id,
-            string Andar,
-            string NroQuarto,
             string Descricao,
-            float ValorQuarto
+            double ValorQuarto
         )
         {
             try
             {
                 Quarto quarto = GetQuartoById(Id);
-                quarto.Andar = Andar;
-                quarto.NroQuarto = NroQuarto;
                 quarto.Descricao = Descricao;
                 quarto.ValorQuarto = ValorQuarto;
 
@@ -82,7 +78,7 @@ namespace Models
             }
             catch 
             {
-                throw new SystemException ("Não conseguimos conectar com o Banco de Dados.");
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 
@@ -96,7 +92,24 @@ namespace Models
             }
             catch
             {
-                throw new SystemException ("Não conseguimos conectar com o Banco de Dados.");
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
+            }
+        }
+
+        public static IEnumerable<Quarto> GetQuartosSemReserva()
+        {
+            try
+            {
+                Context db = new Context();
+                IEnumerable<Quarto> quartos = from Quarto in db.Quartos
+                                                        where Quarto.Reservado == false
+                                                        select Quarto;
+                
+                return quartos;                
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados");
             }
         }
 
@@ -113,7 +126,7 @@ namespace Models
             }
             catch
             {
-                throw new SystemException ("Não conseguimos conectar com o Banco de Dados.");
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 

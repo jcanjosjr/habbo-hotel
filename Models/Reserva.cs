@@ -11,7 +11,7 @@ namespace Models
         public bool Pago { get; set; }
         public DateTime DataSaida { get; set; }
         public DateTime DataEntrada { get; set; }
-        public float ValorTotalReserva { get; set; }
+        public double ValorTotalReserva { get; set; }
         // Cada Reserva é associada a um Quarto.
         public int IdQuarto { get; set; }
         public Quarto Quarto { get; set; }

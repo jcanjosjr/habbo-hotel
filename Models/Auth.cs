@@ -25,7 +25,7 @@ namespace Models
             }
             catch
             {
-                throw new System.Exception("Matrícula ou senha inválida.");
+                throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Models
             }
             catch
             {
-                throw new System.Exception("CPF ou senha inválida.");
+                throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
             }
         }
     }

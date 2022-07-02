@@ -104,7 +104,7 @@ namespace Models
             }
             catch 
             {
-                throw new SystemException ("Não conseguimos conectar com o Banco de Dados.");
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 
@@ -118,7 +118,7 @@ namespace Models
             }
             catch
             {
-                throw new SystemException ("Não conseguimos conectar com o Banco de Dados.");
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 
@@ -135,7 +135,7 @@ namespace Models
             }
             catch
             {
-                throw new SystemException ("Não conseguimos conectar com o Banco de Dados.");
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 
