@@ -1,7 +1,5 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using Models;
+using System;
 
 namespace Controllers
 {
@@ -62,7 +60,18 @@ namespace Controllers
             return quarto;
         }
 
-        
-
+        public static Quarto RemoveQuarto(int Id)
+        {
+            try
+            {
+                Quarto quarto = Quarto.GetQuartoById(Id);
+                Quarto.RemoverQuarto(quarto);
+                return quarto;
+            }
+            catch
+            {
+                throw new Exception("Possuímos um erro ao remover o Quarto.");
+            }
+        }
     }
 }

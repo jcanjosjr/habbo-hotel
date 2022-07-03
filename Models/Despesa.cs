@@ -9,7 +9,7 @@ namespace Models
     {
         public int Id { get; set; }
         public int QuantidadeProduto { get; set; }
-        public float ValorTotalDespesa { get; set; }
+        public double ValorTotalDespesa { get; set; }
         // Cada Despesa possui uma Reserva.
         public int IdReserva { get; set; }
         public Reserva Reserva { get; set; }

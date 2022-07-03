@@ -9,13 +9,13 @@ namespace Models
     {
 		public int Id { get; set; }
 		public string Nome { get; set; }
-        public float ValorProduto { get; set; }
+        public double ValorProduto { get; set; }
 
         public Produto() { }
 
         public Produto(
             string Nome,
-            float ValorProduto
+            double ValorProduto
         )
         {
             this.Nome = Nome;
