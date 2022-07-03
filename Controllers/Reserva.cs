@@ -34,7 +34,7 @@ namespace Controllers
             }
         }
 
-        public static Reserva AlterarReserva(
+        public static void AlterarReserva(
             int Id,
             int IdQuarto,
             DateTime DataEntrada
@@ -54,7 +54,7 @@ namespace Controllers
                     reserva.DataEntrada = DataEntrada;
                 }
 
-                return reserva;                
+                Reserva.AlterarReserva(Id, DataEntrada, IdQuarto);
             }
             catch
             {

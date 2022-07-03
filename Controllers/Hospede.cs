@@ -83,7 +83,7 @@ namespace Controllers
             );
         }
 
-        public static Hospede AlterarHospede(
+        public static void AlterarHospede(
             int Id,
             string Nome,
             DateTime DataNascimento,
@@ -147,7 +147,18 @@ namespace Controllers
                 NomeMae = hospede.NomeMae;
             }
 
-            return hospede;
+            Hospede.AlterarHospede(
+                Id,
+                Nome,
+                DataNascimento,
+                CPF,
+                Senha,
+                NumeroCartao,
+                CVVcartao,
+                DataValidadeCartao,
+                FormaPagamento,
+                NomeMae
+            );
         }
 
         public static Hospede RemoveHospede(int Id)

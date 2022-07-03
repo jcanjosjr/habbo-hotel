@@ -27,15 +27,15 @@ namespace Controllers
                 throw new Exception("Campo referente a Descrição está inválido.");
             }
 
-            if (ValorQuarto < 0)
+            if (ValorQuarto <= 0)
             {
-                throw new Exception("O valor não poderá ser negativo.");
+                throw new Exception("O valor não poderá ser negativo ou igual a zero.");
             }
 
             return new Quarto(Andar, NroQuarto, Descricao, ValorQuarto);
         }
 
-        public static Quarto AlterarQuarto(
+        public static void AlterarQuarto(
             int Id,
             string Descricao,
             double ValorQuarto
@@ -48,16 +48,16 @@ namespace Controllers
                 Descricao = quarto.Descricao;
             }
 
-            if (ValorQuarto < 0)
+            if (ValorQuarto <= 0)
             {
-                throw new Exception("O valor não poderá ser negativo.");
+                throw new Exception("O valor não poderá ser negativo ou igual a zero.");
             }
             else
             {
                 ValorQuarto = quarto.ValorQuarto;
             }
 
-            return quarto;
+            Quarto.AlterarQuarto(Id, Descricao, ValorQuarto);
         }
 
         public static Quarto RemoveQuarto(int Id)

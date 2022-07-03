@@ -53,7 +53,7 @@ namespace Models
         public static void AlterarProduto(
             int Id,
             string Nome,
-            float ValorProduto
+            double ValorProduto
         )
         {
             try

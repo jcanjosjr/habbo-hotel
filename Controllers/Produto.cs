@@ -15,15 +15,15 @@ namespace Controllers
                 throw new Exception("Campo referente ao Nome esta inválido.");
             }
 
-            if (ValorProduto < 0)
+            if (ValorProduto <= 0)
             {
-                throw new Exception("Valor do produto não pode ser negativo.");
+                throw new Exception("Valor do produto não pode ser negativo ou igual a zero.");
             }
 
             return new Produto(Nome, ValorProduto);
         }
 
-        public static Produto AlterarProduto(
+        public static void AlterarProduto(
             int Id,
             string Nome,
             double ValorProduto
@@ -36,16 +36,16 @@ namespace Controllers
                 Nome = produto.Nome;
             }
 
-            if (ValorProduto < 0)
+            if (ValorProduto <= 0)
             {
-                throw new Exception("O valor não poderá ser negativo.");
+                throw new Exception("O valor não poderá ser negativo ou igual a zero.");
             }
             else
             {
                 ValorProduto = produto.ValorProduto;
             }
 
-            return produto;
+            Produto.AlterarProduto(Id, Nome, ValorProduto);
         }
 
         public static Produto RemoveProduto(int Id)

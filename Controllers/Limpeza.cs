@@ -22,7 +22,7 @@ namespace Controllers
             return new Limpeza(IdReserva, IdColaborador, DataLimpeza);
         }
 
-        public static Limpeza AlterarLimpeza(
+        public static void AlterarLimpeza(
             int Id,
             int IdReserva,
             int IdColaborador,
@@ -38,7 +38,7 @@ namespace Controllers
                 throw new Exception("A data não pode ser nula ou retroativa.");
             }
 
-            return limpeza;
+            Limpeza.AlterarLimpeza(Id, IdReserva, IdColaborador, DataLimpeza);
         }
 
         public static Limpeza RemoveLimpeza(int Id)
