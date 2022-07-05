@@ -24,6 +24,7 @@ namespace Views
         Label lblNumeroCartao;
         Label lblCvv;
         Label lblValidade;
+
         TextBox txtNome;
         TextBox txtMae;
         TextBox txtNumeroCartao;
@@ -32,6 +33,8 @@ namespace Views
         MaskedTextBox txtCpf;
         MaskedTextBox txtDataAniversario;
         MaskedTextBox txtValidade;
+
+        
         PictureBox pbDp;
         PictureBox pbCartao;
         PictureBox pbBarra;
@@ -56,7 +59,7 @@ namespace Views
             this.lblNome = new Label();
             this.lblNome.Text = "Nome";
             this.lblNome.Location = new Point(600, 150);
-            this.lblNome.Size = new Size(60, 30);
+            this.lblNome.Size = new Size(85, 30);
             this.lblNome.ForeColor = Color.Black;
             this.lblNome.Font = new Font("Roboto", 14);
 
@@ -229,7 +232,9 @@ namespace Views
             this.Controls.Add(pbBancos);
             this.WindowState = FormWindowState.Maximized;
         }
-         private void handleConfirmClick(object sender, EventArgs e)
+
+
+        /* private void handleConfirmClick(object sender, EventArgs e)
         {
             if (txtSenhaUser.Text.Length < 8)
             {
@@ -240,7 +245,27 @@ namespace Views
                 MessageBox.Show("Dados cadastrados com sucesso", "Sucesso", MessageBoxButtons.OK,MessageBoxIcon.Information ); 
             }
         }
+        */
 
+        private void handleConfirmClick(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
+                
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Controllers.HospedeController.IncluirHospede(txtNome.Text, Convert.ToDateTime(txtDataAniversario.Text), txtCpf.Text,txtSenhaUser.Text, txtNumeroCartao.Text, txtCvv.Text, txtValidade.Text, "credito" , txtMae.Text);
+                    MessageBox.Show("Usuário cadastrado com sucesso.");
+                    this.Close();
+                }
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
     }
 
 }
