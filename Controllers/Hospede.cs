@@ -83,6 +83,76 @@ namespace Controllers
             );
         }
 
+public static Hospede IncluirHospede(
+            string Nome,
+            DateTime DataNascimento,
+            string CPF,
+            string Senha,
+            string NumeroCartao,
+            string CVVcartao,
+            string DataValidadeCartao,
+            string NomeMae
+        )
+        {
+            if (String.IsNullOrEmpty(Nome))
+            {
+                throw new Exception("Campo referente ao Nome esta inválido.");
+            }
+
+            if (DataNascimento == null || DataNascimento < DateTime.Now)
+            {
+                throw new Exception("A data não pode ser nula ou retroativa.");
+            }
+
+            if (String.IsNullOrEmpty(Senha))
+            {
+                throw new Exception("Senha inválida.");
+            }
+            else
+            {
+                Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
+            }
+
+            Regex regexCpf = new Regex("(^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$)|(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)");
+            if (String.IsNullOrEmpty(CPF) || !regexCpf.IsMatch(CPF))
+            {
+                throw new Exception("CPF inválido");
+            }
+
+            Regex regexNumeros = new Regex("[0-9]");
+            if (String.IsNullOrEmpty(NumeroCartao) || !regexNumeros.IsMatch(NumeroCartao))
+            {
+                throw new Exception("Campo referente ao Número do Cartão está inválido.");
+            }
+
+            if (String.IsNullOrEmpty(CVVcartao) || !regexNumeros.IsMatch(CVVcartao))
+            {
+                throw new Exception("Campo referente ao CVV está inválido.");
+            }
+
+            Regex regexDataCartao = new Regex("0[1-9]|1[0-2]");
+            if (String.IsNullOrEmpty(DataValidadeCartao) || !regexDataCartao.IsMatch(DataValidadeCartao))
+            {
+                throw new Exception("Validado do cartão inválida..");
+            }
+
+            if (String.IsNullOrEmpty(NomeMae))
+            {
+                throw new Exception("Nome da mãe inválido.");
+            }
+
+            return new Hospede(
+                Nome,
+                DataNascimento,
+                CPF,
+                Senha,
+                NumeroCartao,
+                CVVcartao,
+                DataValidadeCartao,
+                NomeMae
+            );
+        }
+
         public static void AlterarHospede(
             int Id,
             string Nome,
