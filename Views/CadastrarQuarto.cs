@@ -110,7 +110,7 @@ namespace Views
             this.btCadastrarQuarto.Text = "Cadastrar Quarto";
             this.btCadastrarQuarto.Location = new Point(170, 300);
             this.btCadastrarQuarto.Size = new Size(120, 30);
-            //this.btCadastrarQuarto.Click += new EventHandler(this.handleConfirmClickInserirQuarto);
+            this.btCadastrarQuarto.Click += new EventHandler(this.handleConfirmClickInserirQuarto);
 
             this.btVoltar = new Button();
             this.btVoltar.Text = "Voltar";
@@ -145,6 +145,12 @@ namespace Views
         {
             this.Close();
         }
+
+        private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
+        {
+            
+        }
+
 
     }
 }
