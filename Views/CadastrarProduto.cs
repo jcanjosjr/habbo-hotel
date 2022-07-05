@@ -80,7 +80,7 @@ namespace Views
             this.btCadastrarProduto.Text = "Cadastrar Produto";
             this.btCadastrarProduto.Location = new Point(175, 300);
             this.btCadastrarProduto.Size = new Size(120, 30);
-            //this.btCadastrarProduto.Click += new EventHandler(this.handleConfirmClickInserirProduto);
+            this.btCadastrarProduto.Click += new EventHandler(this.handleConfirmClickInserirProduto);
 
             this.btVoltar = new Button();
             this.btVoltar.Text = "Voltar";
@@ -110,6 +110,24 @@ namespace Views
         private void handleVoltarClick(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void handleConfirmClickInserirProduto(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Controllers.ProdutoController.IncluirProduto(this.txtDescricao.Text, float.Parse(this.txtValor.Text));
+                    MessageBox.Show("Usuário cadastrado com sucesso.");
+                }
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
 
     }
