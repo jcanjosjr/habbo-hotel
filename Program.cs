@@ -1,14 +1,16 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Views;
 
-namespace HabboHotel
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            // CreateHostBuilder(args).Build().Run();
-        }
+        // CreateHostBuilder(args).Build().Run();
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new Views.Login());
     }
 }
+
