@@ -47,6 +47,31 @@ namespace Models
             db.SaveChanges();
         }
 
+         public Hospede(
+            string Nome,
+            DateTime DataNascimento,
+            string CPF,
+            string Senha,
+            string NumeroCartao,
+            string CVVcartao,
+            string DataValidadeCartao,
+            string NomeMae
+        )
+        {
+            this.Nome = Nome;
+            this.DataNascimento = DataNascimento;
+            this.CPF = CPF;
+            this.Senha = Senha;
+            this.NumeroCartao = NumeroCartao;
+            this.CVVcartao = CVVcartao;
+            this.DataValidadeCartao = DataValidadeCartao;
+            this.NomeMae = NomeMae;
+
+            Context db = new Context();
+            db.Hospedes.Add(this);
+            db.SaveChanges();
+        }
+
         public override string ToString()
         {
             return $"\n ------------------------------------"
