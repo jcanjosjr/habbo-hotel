@@ -103,28 +103,19 @@ namespace Views
         {
             try
             {
-                Models.Auth.HospedeLogado(txtUser.Text,txtPass.Text);
-                if (Models.Auth.HospedeAuth != null)
+                Controllers.AuthController.HospedeLogado(txtUser.Text,txtPass.Text);
+                if (Models.Auth.EstaLogado == true)
                 {
-                    //CadastrarQuarto menu = new CadastrarQuarto();
-                    //menu.ShowDialog();
-                    CadastrarQuarto menu = new CadastrarQuarto();
+                    ReservarQuarto menu = new ReservarQuarto();
                     menu.ShowDialog();
                 }
                 
-                /*Models.Auth.ColaboradorLogado(txtUser.Text,txtPass.Text);
-                if (Models.Auth.ColaboradorAuth != null)
+                Controllers.AuthController.ColaboradorLogado(txtUser.Text,txtPass.Text);
+                if (Models.Auth.EstaLogado == true)
                 {
-                    CadastrarFuncionario menu = new CadastrarFuncionario();
+                    ReservarQuarto menu = new ReservarQuarto();
                     menu.ShowDialog();
-                }
-
-                if (Models.Auth.HospedeAuth  == null && Models.Auth.ColaboradorAuth == null) 
-                {
-                    throw new Exception("Usuário não cadastrado.");
-                }
-                */
-                
+                }           
             }
             catch (Exception err)
             {

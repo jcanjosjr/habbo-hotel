@@ -5,9 +5,8 @@ namespace Models
     public class Auth
     {
         public static Colaborador Colaborador;
-        public static Colaborador ColaboradorAuth;
-        public static Hospede Hopede;
-        public static Hospede HospedeAuth;
+        public static Hospede Hospede;
+        public static bool EstaLogado;
         public static void ColaboradorLogado(string Matricula, string Senha)
         {
             try
@@ -16,12 +15,21 @@ namespace Models
                     .Where(it => it.Matricula == Matricula
                         && BCrypt.Net.BCrypt.Verify(Senha, it.Senha)).First();
                 
-                ColaboradorAuth = colaborador;
+                if (colaborador != null)
+                {
+                    EstaLogado = true;
+                    Colaborador = colaborador;
+                    Hospede = null;
+                }
+                else
+                {
+                    Sair();
+                }
             }
             catch
             {
                 throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
-            }
+            }   
         }
 
         public static void HospedeLogado(string CPF, string Senha)
@@ -32,12 +40,30 @@ namespace Models
                     .Where(it => it.CPF == CPF
                         && BCrypt.Net.BCrypt.Verify(Senha, it.Senha)).First();
                 
-                HospedeAuth = hospede;
+                EstaLogado = true;
+
+                if (hospede != null)
+                {
+                    EstaLogado = true;
+                    Hospede = hospede;
+                    Colaborador = null;
+                }
+                else
+                {
+                    Sair();
+                }
             }
             catch
             {
                 throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
             }
+        }
+
+        public static void Sair()
+        {
+            EstaLogado = false;
+            Hospede = null;
+            Colaborador = null;
         }
     }
 }
