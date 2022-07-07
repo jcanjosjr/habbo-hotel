@@ -103,7 +103,7 @@ namespace Views
                 Models.Auth.HospedeLogado(txtUser.Text,txtPass.Text);
                 if (Models.Auth.HospedeAuth != null)
                 {
-                    CadastrarHospede menu = new CadastrarHospede();
+                    CadastrarFuncionario menu = new CadastrarFuncionario();
                     menu.ShowDialog();
                 }
             }
