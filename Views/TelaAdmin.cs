@@ -88,7 +88,8 @@ namespace Views
 
         private void handleQuartosReservadosClick(object sender, EventArgs e)
         {
-
+            QuartosReservados menu = new QuartosReservados();
+            menu.ShowDialog();
         }
 
         private void handleCancelClick(object sender, EventArgs e)
