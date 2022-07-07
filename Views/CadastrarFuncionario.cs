@@ -16,13 +16,10 @@ namespace Views
         Label lblTitulo;
         Label lblNome;
         Label lblMatricula;
-
         TextBox txtNome;
         TextBox txtMatricula;
-
         Button btCadastrarFuncionario;
         Button btVoltar;
-
 
         public CadastrarFuncionario()
         {

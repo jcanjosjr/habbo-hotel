@@ -30,11 +30,9 @@ namespace Views
         TextBox txtNumeroCartao;
         TextBox txtSenhaUser;
         TextBox txtCvv;
-        MaskedTextBox txtCpf;
+        TextBox txtCpf;
         MaskedTextBox txtDataAniversario;
         MaskedTextBox txtValidade;
-
-        
         PictureBox pbDp;
         PictureBox pbCartao;
         PictureBox pbBarra;
@@ -131,12 +129,11 @@ namespace Views
             this.txtMae.Text = "Digite o nome da sua mãe";
             this.txtMae.ForeColor = Color.Black;
 
-            this.txtCpf = new MaskedTextBox();
+            this.txtCpf = new TextBox();
             this.txtCpf.Location = new Point(1160, 180);
             this.txtCpf.Size = new Size(100, 30);
             this.txtCpf.Text = "Digite seu CPF...";
             this.txtCpf.ForeColor = Color.Black;
-            this.txtCpf.Mask = "000,000,000-00";
 
             this.txtDataAniversario = new MaskedTextBox();
             this.txtDataAniversario.Location = new Point(600, 250);
@@ -233,7 +230,6 @@ namespace Views
             this.WindowState = FormWindowState.Maximized;
         }
 
-
         /* private void handleConfirmClick(object sender, EventArgs e)
         {
             if (txtSenhaUser.Text.Length < 8)
@@ -246,7 +242,6 @@ namespace Views
             }
         }
         */
-
         private void handleConfirmClick(object sender, EventArgs e)
         {
             try
