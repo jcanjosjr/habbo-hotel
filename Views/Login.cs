@@ -106,6 +106,16 @@ namespace Views
                     CadastrarFuncionario menu = new CadastrarFuncionario();
                     menu.ShowDialog();
                 }
+                Models.Auth.ColaboradorLogado(txtUser.Text,txtPass.Text);
+                if (Models.Auth.ColaboradorAuth != null)
+                {
+                    CadastrarFuncionario menu = new CadastrarFuncionario();
+                    menu.ShowDialog();
+                }
+
+                if (Models.Auth.HospedeAuth  == null && Models.Auth.ColaboradorAuth == null) {
+                    throw new Exception("Usuário não cadastrado");
+                }
             }
             catch (Exception err)
             {

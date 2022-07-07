@@ -109,14 +109,14 @@ namespace Views
             this.Close();
         }
 
-         private void handleConfirmClickInserirFuncionario(object sender, EventArgs e)
+        private void handleConfirmClickInserirFuncionario(object sender, EventArgs e)
         {
             try
             {
                 DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    Controllers.ColaboradorController.CriarColaborador(txtNome.Text, txtSenha.Text,txtMatricula.Text);
+                    Controllers.ColaboradorController.CriarColaborador(txtNome.Text, txtSenha.Text, txtMatricula.Text);
                     MessageBox.Show("Usuário cadastrado com sucesso.");
                     this.Close();
                 }
