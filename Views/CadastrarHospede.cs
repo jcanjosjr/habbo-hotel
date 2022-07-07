@@ -229,19 +229,6 @@ namespace Views
             this.Controls.Add(pbBancos);
             this.WindowState = FormWindowState.Maximized;
         }
-
-        /* private void handleConfirmClick(object sender, EventArgs e)
-        {
-            if (txtSenhaUser.Text.Length < 8)
-            {
-                MessageBox.Show( "A senha deve ter no minimo 8 caracteres", "Erro",  MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show("Dados cadastrados com sucesso", "Sucesso", MessageBoxButtons.OK,MessageBoxIcon.Information ); 
-            }
-        }
-        */
         private void handleConfirmClick(object sender, EventArgs e)
         {
             try

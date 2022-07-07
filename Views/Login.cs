@@ -93,7 +93,10 @@ namespace Views
         }
         private void handleCadastro(object sender, EventArgs e)
         {
-            CadastrarHospede form = new CadastrarHospede();
+            //CadastrarHospede form = new CadastrarHospede();
+            //form.Show();
+
+            CadastrarFuncionario form = new CadastrarFuncionario();
             form.Show();
         }
         private void handleConfirmClick(object sender, EventArgs e)
@@ -103,19 +106,25 @@ namespace Views
                 Models.Auth.HospedeLogado(txtUser.Text,txtPass.Text);
                 if (Models.Auth.HospedeAuth != null)
                 {
-                    CadastrarFuncionario menu = new CadastrarFuncionario();
+                    //CadastrarQuarto menu = new CadastrarQuarto();
+                    //menu.ShowDialog();
+                    CadastrarQuarto menu = new CadastrarQuarto();
                     menu.ShowDialog();
                 }
-                Models.Auth.ColaboradorLogado(txtUser.Text,txtPass.Text);
+                
+                /*Models.Auth.ColaboradorLogado(txtUser.Text,txtPass.Text);
                 if (Models.Auth.ColaboradorAuth != null)
                 {
                     CadastrarFuncionario menu = new CadastrarFuncionario();
                     menu.ShowDialog();
                 }
 
-                if (Models.Auth.HospedeAuth  == null && Models.Auth.ColaboradorAuth == null) {
-                    throw new Exception("Usuário não cadastrado");
+                if (Models.Auth.HospedeAuth  == null && Models.Auth.ColaboradorAuth == null) 
+                {
+                    throw new Exception("Usuário não cadastrado.");
                 }
+                */
+                
             }
             catch (Exception err)
             {

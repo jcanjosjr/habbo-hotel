@@ -1,7 +1,4 @@
-using System;
-using Repository;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace Models
 {
@@ -9,17 +6,15 @@ namespace Models
     {
         public static Colaborador Colaborador;
         public static Colaborador ColaboradorAuth;
-
         public static Hospede Hopede;
         public static Hospede HospedeAuth;
-
         public static void ColaboradorLogado(string Matricula, string Senha)
         {
             try
             {
                 Colaborador colaborador = Colaborador.GetColaboradores()
                     .Where(it => it.Matricula == Matricula
-                        && BCrypt.Net.BCrypt.Verify(Matricula, it.Senha)).First();
+                        && BCrypt.Net.BCrypt.Verify(Senha, it.Senha)).First();
                 
                 ColaboradorAuth = colaborador;
             }
