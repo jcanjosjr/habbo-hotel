@@ -55,6 +55,7 @@ namespace Views
             this.btnCancel.Click += new EventHandler(this.handleCancelClick);
 
             this.Controls.Add(this.lblAdmin);
+            
             this.Controls.Add(this.btnCadastrarProduto);
             this.Controls.Add(this.btnCadastrarQuarto);
             this.Controls.Add(this.btnCadastrarFuncionario);

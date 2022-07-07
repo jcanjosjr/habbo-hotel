@@ -121,9 +121,6 @@ namespace Views
             this.StartPosition = FormStartPosition.CenterScreen;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 420);
-            //this.FormBorderStyle = FormBorderStyle.None;
-
-            //this.WindowState = FormWindowState.Maximized;
 
         }
 
@@ -134,7 +131,7 @@ namespace Views
 
         private void handleConfirmClickLancarDespesa(object sender, EventArgs e)
         {
-            try
+            /*try
             {
                 DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -147,7 +144,7 @@ namespace Views
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
-            }
+            }*/
         }
     }
 

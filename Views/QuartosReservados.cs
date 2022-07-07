@@ -47,7 +47,7 @@ namespace Views
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
-            /*foreach (Usuario item in ControllerUsuario.VisualizarUsuario())
+            /*foreach (Quarto item in ControllerQuarto.VisualizarQuarto())
             {
                 newLine = new ListViewItem(item.Id.ToString());
                 newLine.SubItems.Add(item.Andar);

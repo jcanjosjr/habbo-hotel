@@ -127,9 +127,6 @@ namespace Views
             this.StartPosition = FormStartPosition.CenterScreen;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 420);
-            //this.FormBorderStyle = FormBorderStyle.None;
-
-            //this.WindowState = FormWindowState.Maximized;
 
         }
 
