@@ -233,7 +233,7 @@ namespace Views
         {
             if (txtSenhaUser.Text.Length < 8)
             {
-                MessageBox.Show( "A senha deve ter no minimo 8 caracteres", "Erro",  MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show( "A senha deve ter no minimo 8 caracteres", "Erro", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
             else
             {

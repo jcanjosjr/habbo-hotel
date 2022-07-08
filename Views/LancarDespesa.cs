@@ -7,7 +7,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
-
+using Controllers;
+using Models;
+using System.Data;
 
 namespace Views
 {
@@ -20,6 +22,7 @@ namespace Views
         Label lblSenha;
 
         CheckedListBox clbProdutos;
+        CheckedListBox clbReserva;
         TextBox txtNome;
         TextBox txtQuantidade;
         TextBox txtSenha;
@@ -65,35 +68,32 @@ namespace Views
             this.clbProdutos = new CheckedListBox();
             this.clbProdutos.Location = new Point(190, 100);
             this.clbProdutos.Size = new Size(220, 100);
-			clbProdutos.SelectionMode = SelectionMode.One;
-			clbProdutos.CheckOnClick = true;
-    
-            /*IEnumerable<Tag> Produtos = ControllerTag.VisualizarTag();
-            foreach (Tag item in ControllerTag.VisualizarTag())
-            {
-                this.clbProdutos.Items.Add($"{item.Id} - {item.Descricao}");
-            }*/
+            clbProdutos.SelectionMode = SelectionMode.One;
+            clbProdutos.CheckOnClick = true;
 
-            //PRIMEIRA FILEIRA
-            this.txtNome = new TextBox();
-            this.txtNome.Location = new Point(190, 100);
-            this.txtNome.Size = new Size(220, 30);
-            this.txtNome.Text = "Digite o nome do funcionário";
-            this.txtNome.ForeColor = Color.Black;
+            IEnumerable<Produto> Produtos = Produto.GetProdutos();
+            foreach (Produto item in Produto.GetProdutos())
+            {
+                this.clbProdutos.Items.Add($"{item.Id} - {item.Nome}");
+            }
+
+
+            CheckedListBox clbReserva;
+            this.clbProdutos = new CheckedListBox();
+            clbProdutos.SelectionMode = SelectionMode.One;
+            clbProdutos.CheckOnClick = true;
+
+            IEnumerable<Reserva> Reservas = Reserva.GetReservas();
+            foreach (Reserva reserva in Reserva.GetReservas())
+            {
+                //this.clbProdutos.Items.Add($"{reserva.Id} - {reserva.Nome}");
+            }
 
 
             //SEGUNDA FILEIRA
             this.txtQuantidade = new TextBox();
             this.txtQuantidade.Location = new Point(190, 240);
             this.txtQuantidade.Size = new Size(220, 30);
-
-            //TERCEIRA FILEIRA
-            this.txtSenha = new TextBox();
-            this.txtSenha.Location = new Point(190, 220);
-            this.txtSenha.Size = new Size(220, 30);
-            this.txtSenha.Text = "Digite a senha do funcionário";
-            this.txtSenha.ForeColor = Color.Black;
-
 
             //BOTÕES
             this.btConfirmar = new Button();
@@ -131,20 +131,25 @@ namespace Views
 
         private void handleConfirmClickLancarDespesa(object sender, EventArgs e)
         {
-            /*try
-            {
-                DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                      Controllers.ColaboradorController.CriarColaborador(this.txtNome.Text, this.txtSenha.Text, this.txtQuantidade.Text);
-                    MessageBox.Show("Usuário cadastrado com sucesso.");
-                }
 
-            }
-            catch (Exception err)
+            //DespesaControllers.CriarDespesa();
+
+            int idProduto;
+
+            foreach (var item in clbProdutos.CheckedItems)
             {
-                MessageBox.Show(err.Message);
-            }*/
+                var row = (item as DataRowView).Row;
+                idProduto = row.Field<int>("ID");
+            }
+
+
+            foreach (var item in clbReserva.CheckedItems)
+            {
+                var row = (item as DataRowView).Row;
+                idProduto = row.Field<int>("ID");
+            }
+
+
         }
     }
 
