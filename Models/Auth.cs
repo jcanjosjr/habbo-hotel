@@ -58,7 +58,6 @@ namespace Models
                 throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
             }
         }
-
         public static void Sair()
         {
             EstaLogado = false;

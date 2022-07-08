@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
-
+using Controllers;
 
 namespace Views
 {
@@ -30,7 +30,6 @@ namespace Views
             this.MinimizeBox = false;
             this.MaximizeBox = false;
 
-        
             this.lblTitulo = new Label();
             this.lblTitulo.Text = "Cadastro de Quarto";
             this.lblTitulo.Location = new Point(110, 50);
@@ -133,8 +132,8 @@ namespace Views
                 if (dialogResult == DialogResult.Yes)
                 {
                     Controllers.QuartoController.IncluirQuarto(txtAndar.Text, txtNumeroQuarto.Text, txtDescricao.Text, Convert.ToDouble(txtValor.Text));
-                    MessageBox.Show("Quarto cadastrado com sucesso.");
-                    this.Close();
+                    //MessageBox.Show("Quarto cadastrado com sucesso.");
+                    //this.Close();
                 }
             }
             catch (Exception err)
