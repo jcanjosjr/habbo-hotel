@@ -11,6 +11,7 @@ namespace Models
 		public string Nome { get; set; }
 		public string Senha { get; set; }
 		public string Matricula { get; set; }
+        public static Colaborador ColaboradorAuth;
 
         public Colaborador() { }
 
@@ -81,15 +82,8 @@ namespace Models
 
         public static IEnumerable<Colaborador> GetColaboradores()
         {
-            try
-            {
-                Context db = new Context();
-                return (from Colaborador in db.Colaboradores select Colaborador);
-            }
-            catch
-            {
-                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
-            }
+            Context db = new Context();
+            return (from Colaborador in db.Colaboradores select Colaborador);
         }
 
         public static Colaborador GetColaboradorById(int Id)
@@ -121,6 +115,25 @@ namespace Models
             {
                 throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
             }
+        }
+
+        public static void Auth(string Matricula, string Senha)
+        {
+            try
+            {
+                Colaborador colaborador = Colaborador.GetColaboradores()
+                    .Where(it => it.Matricula == Matricula
+                        && BCrypt.Net.BCrypt.Verify(Senha, it.Senha)
+                    )
+                    .First();
+
+                ColaboradorAuth = colaborador;   
+
+            }
+            catch
+            {
+                throw new System.Exception("Aqui 1");
+            }   
         }
     }
 }

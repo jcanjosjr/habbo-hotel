@@ -17,6 +17,7 @@ namespace Models
         public string DataValidadeCartao { get; set; }
         public string FormaPagamento { get; set; }
         public string NomeMae { get; set; }
+        public static Hospede HospedeAuth;
 
         public Hospede() { }
 
@@ -136,15 +137,8 @@ namespace Models
 
         public static IEnumerable<Hospede> GetHospedes()
         {
-            try
-            {
-                Context db = new Context();
-                return (from Hospede in db.Hospedes select Hospede);
-            }
-            catch
-            {
-                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
-            }
+            Context db = new Context();
+            return (from Hospede in db.Hospedes select Hospede);
         }
 
         public static Hospede GetHospedeById(int Id)
@@ -176,6 +170,24 @@ namespace Models
             {
                 throw new System.Exception("Não conseguimos conectar com o Banco de Dados.");
             }
+        }
+
+        public static void Auth(string CPF, string Senha)
+        {
+            try
+            {
+                Hospede hospede = Hospede.GetHospedes()
+                    .Where(it => it.CPF == CPF
+                        && BCrypt.Net.BCrypt.Verify(Senha, it.Senha)
+                    )
+                    .First();
+
+                HospedeAuth = hospede;    
+            }
+            catch
+            {
+                throw new System.Exception("aaaaaaaaaaaaaaaados.");
+            }   
         }
     }
 }

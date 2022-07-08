@@ -16,7 +16,7 @@ namespace Views
         Label lblNome;
         Label lblSenha;
         Label lblMatricula;
-        Label lblSenha;
+        //Label lblSenha;
 
         TextBox txtNome;
         TextBox txtMatricula;

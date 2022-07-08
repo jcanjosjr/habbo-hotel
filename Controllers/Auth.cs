@@ -18,7 +18,7 @@ namespace Controllers
                 throw new Exception("Por favor, preencha a senha.");
             }
 
-            Auth.ColaboradorLogado(Matricula, Senha);
+            Colaborador.Auth(Matricula, Senha);
         }
 
         public static void HospedeLogado(string CPF, string Senha)
@@ -33,7 +33,7 @@ namespace Controllers
                 throw new Exception("Por favor, preencha a senha.");
             }
 
-            Auth.HospedeLogado(CPF, Senha);
+            Hospede.Auth(CPF, Senha);
         }
     }
 }

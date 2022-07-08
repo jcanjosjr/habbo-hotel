@@ -101,25 +101,20 @@ namespace Views
         }
         private void handleConfirmClick(object sender, EventArgs e)
         {
-            try
+            /*
+            Controllers.AuthController.HospedeLogado(txtUser.Text,txtPass.Text);
+            if (!(Models.Hospede.HospedeAuth == null))
             {
-                Controllers.AuthController.HospedeLogado(txtUser.Text,txtPass.Text);
-                if (Models.Auth.EstaLogado == true)
-                {
-                    ReservarQuarto menu = new ReservarQuarto();
-                    menu.ShowDialog();
-                }
-                
-                Controllers.AuthController.ColaboradorLogado(txtUser.Text,txtPass.Text);
-                if (Models.Auth.EstaLogado == true)
-                {
-                    ReservarQuarto menu = new ReservarQuarto();
-                    menu.ShowDialog();
-                }           
+                ReservarQuarto menu = new ReservarQuarto();
+                menu.ShowDialog();
             }
-            catch (Exception err)
+            */
+
+            Controllers.AuthController.ColaboradorLogado(txtUser.Text,txtPass.Text);
+            if (!(Models.Colaborador.ColaboradorAuth == null))
             {
-                MessageBox.Show(err.Message);
+                ReservarQuarto menu = new ReservarQuarto();
+                menu.ShowDialog();
             }
         }
         
