@@ -7,7 +7,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
-
+using Controllers;
+using Models;
 
 namespace Views
 {
@@ -47,15 +48,15 @@ namespace Views
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
-            /*foreach (Quarto item in ControllerQuarto.VisualizarQuarto())
+            foreach (Quarto item in Quarto.GetQuartos())
             {
                 newLine = new ListViewItem(item.Id.ToString());
                 newLine.SubItems.Add(item.Andar);
                 newLine.SubItems.Add(item.NroQuarto);
-                newLine.SubItems.Add(item.ValorQuarto);
+                newLine.SubItems.Add(item.ValorQuarto.ToString());
 
                 listView.Items.Add(newLine);
-            }*/
+            }
 
             this.btnLancarDespesa = new Button();
             this.btnLancarDespesa.Text = "Lançar Despesa";
