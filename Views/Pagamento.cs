@@ -11,9 +11,10 @@ using Models;
 using Controllers;
 using Views;
 
+
 namespace Views
 {
-    public class ReservarQuarto : Form
+    public class Pagamento : Form
     {
         private System.ComponentModel.IContainer components = null;
         Label lblTitulo;
@@ -21,10 +22,11 @@ namespace Views
         Button btnInsert;
         public ListView listView;
         public ListViewItem newLine;
-        public ReservarQuarto()
+        Reserva reserva;
+        public Pagamento(Reserva reserva)
         {
             this.lblTitulo = new Label();
-            this.lblTitulo.Text = "Reservar quarto";
+            this.lblTitulo.Text = "Pagamento";
             this.lblTitulo.Location = new Point(180, 10);
             this.lblTitulo.Font = new Font("Calibri", 15);
             this.lblTitulo.Size = new Size(230, 30);
@@ -37,36 +39,38 @@ namespace Views
             listView.Size = new Size(400, 400);
             listView.View = View.Details;
             listView.Columns.Add("ID", -2, HorizontalAlignment.Left);
-            listView.Columns.Add("Andar", -2, HorizontalAlignment.Left);
-            listView.Columns.Add("N° Quarto", -2, HorizontalAlignment.Left);
-            listView.Columns.Add("Descrição", -2, HorizontalAlignment.Left);
-            listView.Columns.Add("Valor do quarto", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Produto", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Valor", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Quantidade de Itens", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Valor total", -2, HorizontalAlignment.Left);
             listView.FullRowSelect = true;
             listView.GridLines = true;
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
-            foreach (Quarto item in Quarto.GetQuartosSemReserva())
+            foreach (Despesa item in Despesa.GetDespesasByReserva(reserva.Id))
             {
+                double valor = Produto.GetProdutoById(item.IdProduto).ValorProduto;
                 newLine = new ListViewItem(item.Id.ToString());
-                newLine.SubItems.Add(item.Andar);
-                newLine.SubItems.Add(item.NroQuarto);
-                newLine.SubItems.Add(item.Descricao);
-                newLine.SubItems.Add("R$" + item.ValorQuarto.ToString());
+                newLine.SubItems.Add(Produto.GetProdutoById(item.IdProduto).ToString());
+                newLine.SubItems.Add(Produto.GetProdutoById(item.IdProduto).ToStringValor());
+                newLine.SubItems.Add(item.QuantidadeProduto.ToString());
+                newLine.SubItems.Add("R$" + (item.QuantidadeProduto * valor));
+
                 listView.Items.Add(newLine);
             }
 
-            this.btnCancel = new Button();
-            this.btnCancel.Text = "Cancelar";
-            this.btnCancel.Location = new Point(280, 500);
-            this.btnCancel.Size = new Size(80, 30);
-            this.btnCancel.Click += new EventHandler(this.handleCancelClick);
+            // this.btnCancel = new Button();
+            // this.btnCancel.Text = "Cancelar";
+            // this.btnCancel.Location = new Point(280, 500);
+            // this.btnCancel.Size = new Size(80, 30);
+            // this.btnCancel.Click += new EventHandler(this.handleCancelClick);
 
             this.btnInsert = new Button();
-            this.btnInsert.Text = "CHECK-IN";
+            this.btnInsert.Text = "PAGAMENTO";
             this.btnInsert.Location = new Point(100, 500);
             this.btnInsert.Size = new Size(140, 30);
-            this.btnInsert.Click += new EventHandler(this.handleConfirmClickCheckIn);
+            this.btnInsert.Click += new EventHandler(this.handleConfirmClickCheckOut);
 
             //this.updateList();
 
@@ -78,17 +82,10 @@ namespace Views
         }
 
 
-
-
-        private void handleConfirmClickCheckIn(object sender, EventArgs e)
+        private void handleConfirmClickCheckOut(object sender, EventArgs e)
         {
-            ListViewItem selectedItem = listView.SelectedItems[0];
-            int IdQuarto = Convert.ToInt32(selectedItem.Text);
-            ReservaControllers.CriarReserva(IdQuarto, Hospede.HospedeAuth.Id, DateTime.Today);
-            Quarto.UpdateStatus(IdQuarto);
-            
-            CheckOut form = new CheckOut(IdQuarto);
-            form.Show();
+            MessageBox.Show("Pagamento Realizado");
+            this.Close();
         }
 
         private void handleCancelClick(object sender, EventArgs e)

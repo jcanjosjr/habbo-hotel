@@ -120,6 +120,20 @@ namespace Models
             }
         }
 
+        public static IEnumerable<Despesa> GetDespesasByReserva(int IdReserva)
+        {
+            try
+            {
+                Context db = new Context();
+                return (from Despesa in db.Despesas
+                where Despesa.IdReserva == IdReserva
+                select Despesa);
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
+            }
+        }
         public static Despesa GetDespesa(int IdProduto, int IdReserva)
         {
             try

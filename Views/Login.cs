@@ -93,11 +93,11 @@ namespace Views
         }
         private void handleCadastro(object sender, EventArgs e)
         {
-            //CadastrarHospede form = new CadastrarHospede();
-            //form.Show();
-
-            CadastrarFuncionario form = new CadastrarFuncionario();
+            CadastrarHospede form = new CadastrarHospede();
             form.Show();
+
+            // CadastrarFuncionario form = new CadastrarFuncionario();
+            // form.Show();
         }
         private void handleConfirmClick(object sender, EventArgs e)
         {

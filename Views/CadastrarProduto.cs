@@ -114,6 +114,7 @@ namespace Views
                 {
                     Controllers.ProdutoController.IncluirProduto(this.txtDescricao.Text, float.Parse(this.txtValor.Text));
                     MessageBox.Show("Usuário cadastrado com sucesso.");
+                    this.Close();
                 }
 
             }

@@ -28,13 +28,13 @@ namespace Views
 
         Button btConfirmar;
         Button btCancelar;
+        ListView listView;
 
+        ListViewItem newLine;
         String IdQuarto;
-        int idProduto;
-
-
         public LancarDespesa(String IdQuarto)
         {
+            this.IdQuarto = IdQuarto;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
 
@@ -59,17 +59,43 @@ namespace Views
             this.lblQuantidade.ForeColor = Color.Black;
             this.lblQuantidade.Font = new Font("Roboto", 13);
 
-            this.clbProdutos = new CheckedListBox();
-            this.clbProdutos.Location = new Point(190, 100);
-            this.clbProdutos.Size = new Size(220, 100);
-            clbProdutos.SelectionMode = SelectionMode.One;
-            clbProdutos.CheckOnClick = true;
 
-            IEnumerable<Produto> produtos = Produto.GetProdutos();
+            listView = new ListView();
+            listView.Location = new Point(190, 100);
+            listView.Size = new Size(220, 100);
+            listView.View = View.Details;
+            listView.Columns.Add("ID", -2, HorizontalAlignment.Left);
+            //listView.Columns.Add("Andar", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Nome", -2, HorizontalAlignment.Left);
+            //listView.Columns.Add("Descrição", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Valor", -2, HorizontalAlignment.Left);
+            listView.FullRowSelect = true;
+            listView.GridLines = true;
+            listView.AllowColumnReorder = true;
+            listView.Sorting = SortOrder.Ascending;
+
+            // this.clbProdutos = new CheckedListBox();
+            // this.clbProdutos.Location = new Point(190, 100);
+            // this.clbProdutos.Size = new Size(220, 100);
+            // clbProdutos.SelectionMode = SelectionMode.One;
+            // clbProdutos.CheckOnClick = true;
+
+
+
             foreach (Produto item in Produto.GetProdutos())
             {
-                this.clbProdutos.Items.Add($"{item.Nome} - R$ {item.ValorProduto}");
+                newLine = new ListViewItem(item.Id.ToString());
+                newLine.SubItems.Add(item.Nome);
+                newLine.SubItems.Add(item.ValorProduto.ToString());
+                // newLine.SubItems.Add("R$" + item.ValorQuarto.ToString());
+                listView.Items.Add(newLine);
             }
+
+            // IEnumerable<Produto> produtos = Produto.GetProdutos();
+            // foreach (Produto item in Produto.GetProdutos())
+            // {
+            //     this.clbProdutos.Items.Add($"{item.Nome} - R$ {item.ValorProduto}");
+            // }
 
             this.txtNome = new TextBox();
             this.txtNome.Location = new Point(190, 100);
@@ -109,27 +135,42 @@ namespace Views
             this.Controls.Add(this.btConfirmar);
             this.Controls.Add(this.btCancelar);
 
+            this.Controls.Add(listView);
+
             this.StartPosition = FormStartPosition.CenterScreen;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 420);
         }
-            private void handleVoltarClick(object sender, EventArgs e)
-            {
-                this.Close();
-            }
+        private void handleVoltarClick(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-            private void handleConfirmClickLancarDespesa(object sender, EventArgs e)
+        private void handleConfirmClickLancarDespesa(object sender, EventArgs e)
+        {
+
+
+            try
             {
-            
-                foreach (int index in clbProdutos.CheckedIndices)
-                {                
-                    
+                DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+
+                    ListViewItem selectedItem = listView.SelectedItems[0];
+                    int IdProduto = Convert.ToInt32(selectedItem.Text);
+
+                    int idReserva = Reserva.GetReservasAtivasPorQuarto(Convert.ToInt32(this.IdQuarto)).Id;
+
+                    DespesaControllers.CriarDespesa(Convert.ToInt32(idReserva), IdProduto, Convert.ToInt32(this.txtQuantidade.Text));
+                    this.Close();
                 }
-                int idReserva = Reserva.GetReservasAtivasPorQuarto(Convert.ToInt32(IdQuarto)).Id;
-
-                DespesaControllers.CriarDespesa(Convert.ToInt32(idReserva), idProduto, Convert.ToInt32(this.txtQuantidade.Text));
-
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
         }
 
     }
+}

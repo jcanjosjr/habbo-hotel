@@ -9,11 +9,10 @@ using System.Threading;
 using System.IO;
 using Models;
 using Controllers;
-using Views;
 
 namespace Views
 {
-    public class ReservarQuarto : Form
+    public class CheckOut : Form
     {
         private System.ComponentModel.IContainer components = null;
         Label lblTitulo;
@@ -21,10 +20,13 @@ namespace Views
         Button btnInsert;
         public ListView listView;
         public ListViewItem newLine;
-        public ReservarQuarto()
+
+        int IdQuarto;
+        public CheckOut(int IdQuarto)
         {
+            this.IdQuarto = IdQuarto;
             this.lblTitulo = new Label();
-            this.lblTitulo.Text = "Reservar quarto";
+            this.lblTitulo.Text = "Quarto Reservado";
             this.lblTitulo.Location = new Point(180, 10);
             this.lblTitulo.Font = new Font("Calibri", 15);
             this.lblTitulo.Size = new Size(230, 30);
@@ -46,27 +48,27 @@ namespace Views
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
-            foreach (Quarto item in Quarto.GetQuartosSemReserva())
+            Quarto quarto = Quarto.GetQuartoById(IdQuarto);
             {
-                newLine = new ListViewItem(item.Id.ToString());
-                newLine.SubItems.Add(item.Andar);
-                newLine.SubItems.Add(item.NroQuarto);
-                newLine.SubItems.Add(item.Descricao);
-                newLine.SubItems.Add("R$" + item.ValorQuarto.ToString());
+                newLine = new ListViewItem(quarto.Id.ToString());
+                newLine.SubItems.Add(quarto.Andar);
+                newLine.SubItems.Add(quarto.NroQuarto);
+                newLine.SubItems.Add(quarto.Descricao);
+                newLine.SubItems.Add("R$" + quarto.ValorQuarto.ToString());
                 listView.Items.Add(newLine);
             }
 
-            this.btnCancel = new Button();
-            this.btnCancel.Text = "Cancelar";
-            this.btnCancel.Location = new Point(280, 500);
-            this.btnCancel.Size = new Size(80, 30);
-            this.btnCancel.Click += new EventHandler(this.handleCancelClick);
+            // this.btnCancel = new Button();
+            // this.btnCancel.Text = "Cancelar";
+            // this.btnCancel.Location = new Point(280, 500);
+            // this.btnCancel.Size = new Size(80, 30);
+            // this.btnCancel.Click += new EventHandler(this.handleCancelClick);
 
             this.btnInsert = new Button();
-            this.btnInsert.Text = "CHECK-IN";
+            this.btnInsert.Text = "CHECK-OUT";
             this.btnInsert.Location = new Point(100, 500);
             this.btnInsert.Size = new Size(140, 30);
-            this.btnInsert.Click += new EventHandler(this.handleConfirmClickCheckIn);
+            this.btnInsert.Click += new EventHandler(this.handleConfirmClickCheckOut);
 
             //this.updateList();
 
@@ -78,16 +80,11 @@ namespace Views
         }
 
 
-
-
-        private void handleConfirmClickCheckIn(object sender, EventArgs e)
+        private void handleConfirmClickCheckOut(object sender, EventArgs e)
         {
-            ListViewItem selectedItem = listView.SelectedItems[0];
-            int IdQuarto = Convert.ToInt32(selectedItem.Text);
-            ReservaControllers.CriarReserva(IdQuarto, Hospede.HospedeAuth.Id, DateTime.Today);
-            Quarto.UpdateStatus(IdQuarto);
-            
-            CheckOut form = new CheckOut(IdQuarto);
+            int idReserva = Reserva.GetReservasAtivasPorQuarto(IdQuarto).Id;
+
+            Pagamento form = new Pagamento(Reserva.GetReservasAtivasPorQuarto(Convert.ToInt32(this.IdQuarto)));
             form.Show();
         }
 

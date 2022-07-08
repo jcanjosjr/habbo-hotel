@@ -7,8 +7,8 @@ namespace Models
 {
     public class Produto
     {
-		public int Id { get; set; }
-		public string Nome { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
         public double ValorProduto { get; set; }
 
         public Produto() { }
@@ -28,17 +28,20 @@ namespace Models
 
         public override string ToString()
         {
-            return $"\n ------------------------------------"
-                + $"\n ID: {this.Id}"
-                + $"\n Nome: {this.Nome}"
-                + $"\n ValorProduto: R$ {this.ValorProduto}";
+            return this.Nome;
+        }
+
+        
+        public  string ToStringValor()
+        {
+            return this.ValorProduto.ToString();
         }
 
         public override bool Equals(object obj)
         {
             if (obj == null || !Produto.ReferenceEquals(this, obj))
             {
-            return false;
+                return false;
             }
 
             Produto it = (Produto)obj;
@@ -66,7 +69,7 @@ namespace Models
                 db.Produtos.Update(produto);
                 db.SaveChanges();
             }
-            catch 
+            catch
             {
                 throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
@@ -92,8 +95,8 @@ namespace Models
             {
                 Context db = new Context();
                 IEnumerable<Produto> produtos = from Produto in db.Produtos
-                                                        where Produto.Id == Id
-                                                        select Produto;
+                                                where Produto.Id == Id
+                                                select Produto;
 
                 return produtos.First();
             }
@@ -102,7 +105,6 @@ namespace Models
                 throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
-
         public static void RemoverProduto(Produto produto)
         {
             try
