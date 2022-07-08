@@ -7,15 +7,14 @@ namespace Models
 {
     public class Quarto
     {
-		public int Id { get; set; }
-		public string Andar { get; set; }
+        public int Id { get; set; }
+        public string Andar { get; set; }
         public bool Reservado { get; set; }
-		public string Descricao { get; set; }
-		public string NroQuarto { get; set; }
+        public string Descricao { get; set; }
+        public string NroQuarto { get; set; }
         public double ValorQuarto { get; set; }
 
         public Quarto() { }
-
         public Quarto(
             string Andar,
             string NroQuarto,
@@ -34,6 +33,7 @@ namespace Models
             db.SaveChanges();
         }
 
+
         public override string ToString()
         {
             return $"\n ------------------------------------"
@@ -48,7 +48,7 @@ namespace Models
         {
             if (obj == null || !Quarto.ReferenceEquals(this, obj))
             {
-            return false;
+                return false;
             }
 
             Quarto it = (Quarto)obj;
@@ -76,12 +76,30 @@ namespace Models
                 db.Quartos.Update(quarto);
                 db.SaveChanges();
             }
-            catch 
+            catch
             {
                 throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 
+        public static void UpdateStatus(
+            int Id
+        )
+        {
+            try
+            {
+                Quarto quarto = GetQuartoById(Id);
+                quarto.Reservado = true;
+
+                Context db = new Context();
+                db.Quartos.Update(quarto);
+                db.SaveChanges();
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
+            }
+        }
 
         public static IEnumerable<Quarto> GetQuartos()
         {
@@ -101,11 +119,32 @@ namespace Models
             try
             {
                 Context db = new Context();
-                IEnumerable<Quarto> quartos = from Quarto in db.Quartos
+                /*IEnumerable<Quarto> quartos = from Quarto in db.Quartos
                                                         where Quarto.Reservado == false
-                                                        select Quarto;
-                
-                return quartos;                
+                                                        select Quarto;*/
+
+                return (from Quarto in db.Quartos
+                        where Quarto.Reservado == false
+                        select Quarto);
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados");
+            }
+        }
+
+                public static IEnumerable<Quarto> GetQuartosReservados()
+        {
+            try
+            {
+                Context db = new Context();
+                /*IEnumerable<Quarto> quartos = from Quarto in db.Quartos
+                                                        where Quarto.Reservado == false
+                                                        select Quarto;*/
+
+                return (from Quarto in db.Quartos
+                        where Quarto.Reservado == true
+                        select Quarto);
             }
             catch
             {
@@ -119,8 +158,8 @@ namespace Models
             {
                 Context db = new Context();
                 IEnumerable<Quarto> quartos = from Quarto in db.Quartos
-                                                        where Quarto.Id == Id
-                                                        select Quarto;
+                                              where Quarto.Id == Id
+                                              select Quarto;
 
                 return quartos.First();
             }

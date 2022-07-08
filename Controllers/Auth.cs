@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 namespace Controllers
 {
     public class AuthController
+
     {
         public static void ColaboradorLogado(string Matricula, string Senha)
         {
@@ -33,7 +34,8 @@ namespace Controllers
                 throw new Exception("Por favor, preencha a senha.");
             }
 
-            Hospede.Auth(CPF, Senha);
+            Hospede.Auth(CPF,Senha);
+
         }
     }
 }

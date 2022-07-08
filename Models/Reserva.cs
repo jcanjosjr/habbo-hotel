@@ -31,16 +31,16 @@ namespace Models
             this.IdHospede = IdHospede;
             this.DataEntrada = DataEntrada;
             this.Pago = false;
-            
+
             // Checa o Quarto:
-            if (this.Quarto.Reservado == false)
-            {
-                this.Quarto.Reservado = true;
-            }
-            else
-            {
-                throw new System.Exception("Quarto já consta reservado.");
-            }
+            /* if (this.Quarto.Reservado == false)
+             {
+                 this.Quarto.Reservado = true;
+             }
+             else
+             {
+                 throw new System.Exception("Quarto já consta reservado.");
+             }*/
 
             Context db = new Context();
             db.Reservas.Add(this);
@@ -90,7 +90,7 @@ namespace Models
             }
             catch
             {
-                throw new SystemException ("Não conseguimos conectar com o Banco de Dados.");
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
             }
         }
 
@@ -197,15 +197,14 @@ namespace Models
                                                 where Reserva.Id == Id
                                                 select Reserva;
 
-                return Reservas.First();               
+                return Reservas.First();
             }
             catch
             {
-                
-                throw new SystemException("Não conseguimos conectar com o Banco de Dados.");;
+
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados."); ;
             }
         }
-
         public static IEnumerable<Reserva> ReservaGetByIdHospede(int IdHospede)
         {
             try
@@ -218,6 +217,43 @@ namespace Models
             catch
             {
                 throw new SystemException("Não conseguimos conectar com o Banco de Dados.");
+            }
+        }
+
+        public static IEnumerable<Reserva> GetReservasAtivas()
+        {
+            try
+            {
+                Context db = new Context();
+                IEnumerable<Reserva> reservas = from Reserva in db.Reservas
+                                                join Quarto in db.Quartos
+                                                on Reserva.IdQuarto equals Quarto.Id
+                                                where Reserva.Pago == false
+                                                select Reserva;
+
+                return reservas;
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados");
+            }
+        }
+
+        public static Reserva GetReservasAtivasPorQuarto(int IdQuarto)
+        {
+            try
+            {
+                Context db = new Context();
+                IEnumerable<Reserva> reservas = from Reserva in db.Reservas
+                                                where Reserva.IdQuarto == IdQuarto
+                                                && Reserva.Pago == false
+                                                select Reserva;
+
+                return reservas.First();
+            }
+            catch
+            {
+                throw new SystemException("Não conseguimos conectar com o Banco de Dados");
             }
         }
 
@@ -245,13 +281,13 @@ namespace Models
         {
             try
             {
-                IEnumerable<Reserva> reservas = 
+                IEnumerable<Reserva> reservas =
                     from Reserva in Reserva.GetReservas()
                     where Reserva.DataEntrada == DataEntrada
                     && Reserva.IdHospede == IdHospede
                     && Reserva.IdQuarto == IdQuarto
                     && Reserva.Id != IdAtual
-                select Reserva;
+                    select Reserva;
 
                 return reservas.Count() > 0;
             }

@@ -172,7 +172,7 @@ namespace Models
             }
         }
 
-        public static void Auth(string CPF, string Senha)
+        public static Hospede Auth(string CPF, string Senha)
         {
             try
             {
@@ -182,7 +182,7 @@ namespace Models
                     )
                     .First();
 
-                HospedeAuth = hospede;    
+                return HospedeAuth = hospede;    
             }
             catch
             {

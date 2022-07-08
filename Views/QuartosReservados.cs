@@ -33,28 +33,29 @@ namespace Views
             this.lblTitulo.Location = new Point(190, 20);
             this.lblTitulo.Size = new Size(230, 30);
             this.lblTitulo.ForeColor = Color.Green;
-            this.lblTitulo.Font = new Font("Roboto", 15);       
+            this.lblTitulo.Font = new Font("Roboto", 15);
 
             listView = new ListView();
-            listView.Location = new Point(45, 25);
-            listView.Size = new Size(410, 500);
+            listView.Location = new Point(50, 70);
+            listView.Size = new Size(400, 400);
             listView.View = View.Details;
-
+            listView.Columns.Add("ID", -2, HorizontalAlignment.Left);
             listView.Columns.Add("Andar", -2, HorizontalAlignment.Left);
-            listView.Columns.Add("Nº do Quarto", -2, HorizontalAlignment.Left);
-            listView.Columns.Add("Valor", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("N° Quarto", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Descrição", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Valor do quarto", -2, HorizontalAlignment.Left);
             listView.FullRowSelect = true;
             listView.GridLines = true;
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
-            foreach (Quarto item in Quarto.GetQuartos())
+            foreach (Quarto item in Quarto.GetQuartosReservados())
             {
                 newLine = new ListViewItem(item.Id.ToString());
                 newLine.SubItems.Add(item.Andar);
                 newLine.SubItems.Add(item.NroQuarto);
-                newLine.SubItems.Add(item.ValorQuarto.ToString());
-
+                newLine.SubItems.Add(item.Descricao);
+                newLine.SubItems.Add("R$" + item.ValorQuarto.ToString());
                 listView.Items.Add(newLine);
             }
 
@@ -68,7 +69,7 @@ namespace Views
             this.btnVoltar.Text = "Voltar";
             this.btnVoltar.Location = new Point(270, 546);
             this.btnVoltar.Size = new Size(100, 30);
-            this.btnVoltar.Click += new EventHandler(this.handleVoltarClick);          
+            this.btnVoltar.Click += new EventHandler(this.handleVoltarClick);
 
 
             this.Controls.Add(listView);
@@ -84,7 +85,9 @@ namespace Views
 
         private void handleConfirmClickLancarDespesa(object sender, EventArgs e)
         {
-            LancarDespesa menu = new LancarDespesa();
+            ListViewItem selectedItem = listView.SelectedItems[0];
+            String IdQuarto = selectedItem.Text;
+            LancarDespesa menu = new LancarDespesa(IdQuarto);
             menu.ShowDialog();
         }
 
