@@ -22,7 +22,6 @@ namespace Controllers
                 {
                     throw new Exception("A quantidade de produtos não pode ser zero ou inferior.");
                 }
-
                 return new Despesa(IdReserva, IdProduto, QuantidadeProduto);
             }
             catch

@@ -21,7 +21,7 @@ namespace Views
         Button btnConfirm;
         PictureBox pbLogo;
         Button btnCriarConta;
-        
+
         public Login()
         {
             this.lblUser = new Label();
@@ -83,7 +83,7 @@ namespace Views
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.btnCriarConta);
             this.Controls.Add(pbLogo);
-            
+
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.WindowState = FormWindowState.Maximized;
@@ -101,22 +101,33 @@ namespace Views
         }
         private void handleConfirmClick(object sender, EventArgs e)
         {
-            /*
-            Controllers.AuthController.HospedeLogado(txtUser.Text,txtPass.Text);
-            if (!(Models.Hospede.HospedeAuth == null))
+            try
             {
-                ReservarQuarto menu = new ReservarQuarto();
-                menu.ShowDialog();
-            }
-            */
+                if (txtUser.Text.Length == 11)
+                {
+                    Controllers.AuthController.HospedeLogado(txtUser.Text, txtPass.Text);
+                    if (!(Models.Hospede.HospedeAuth == null))
+                    {
+                        ReservarQuarto menu = new ReservarQuarto();
+                        menu.ShowDialog();
+                    }
+                }
+                else
+                {
 
-            Controllers.AuthController.ColaboradorLogado(txtUser.Text,txtPass.Text);
-            if (!(Models.Colaborador.ColaboradorAuth == null))
-            {
-                ReservarQuarto menu = new ReservarQuarto();
-                menu.ShowDialog();
+                    Controllers.AuthController.ColaboradorLogado(txtUser.Text, txtPass.Text);
+                    if (!(Models.Colaborador.ColaboradorAuth == null))
+                    {
+                        TelaAdmin menu = new TelaAdmin();
+                        menu.ShowDialog();
+                    }
+                }
             }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+
         }
-        
     }
 }

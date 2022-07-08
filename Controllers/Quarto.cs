@@ -73,5 +73,7 @@ namespace Controllers
                 throw new Exception("Possuímos um erro ao remover o Quarto.");
             }
         }
+
+
     }
 }

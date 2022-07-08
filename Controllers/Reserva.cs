@@ -16,15 +16,15 @@ namespace Controllers
                 Quarto.GetQuartoById(IdQuarto);
                 Hospede.GetHospedeById(IdHospede);
 
-                if (DataEntrada == null || DataEntrada < DateTime.Now)
+                if (DataEntrada == null)
                 {
-                    throw new Exception("A data não pode ser nula ou retroativa.");
+                    throw new Exception("A data não pode ser nula.");
                 }
 
-                if(Reserva.ChecaConflitoReserva(0, IdHospede, IdQuarto, DataEntrada))
+                /*if(Reserva.ChecaConflitoReserva(0, IdHospede, IdQuarto, DataEntrada))
                 {
                     throw new Exception("Desculpe, já possuímos reserva neste dia.");
-                }
+                }*/
 
                 return new Reserva(IdQuarto, IdHospede, DataEntrada);
             }
