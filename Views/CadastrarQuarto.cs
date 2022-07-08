@@ -35,14 +35,14 @@ namespace Views
             this.lblTitulo.Location = new Point(110, 50);
             this.lblTitulo.Size = new Size(200, 30);
             this.lblTitulo.ForeColor = Color.Green;
-            this.lblTitulo.Font = new Font("Calibri", 15);
+            this.lblTitulo.Font = new Font("Roboto", 15);
 
             this.lblNumeroQuarto = new Label();
             this.lblNumeroQuarto.Text = "Nº do Quarto";
             this.lblNumeroQuarto.Location = new Point(110, 120);
             this.lblNumeroQuarto.Size = new Size(140, 30);
             this.lblNumeroQuarto.ForeColor = Color.Black;
-            this.lblNumeroQuarto.Font = new Font("Calibri", 15);
+            this.lblNumeroQuarto.Font = new Font("Roboto", 15);
 
 
             this.lblAndar = new Label();
@@ -50,45 +50,37 @@ namespace Views
             this.lblAndar.Location = new Point(330, 120);
             this.lblAndar.Size = new Size(130, 30);
             this.lblAndar.ForeColor = Color.Black;
-            this.lblAndar.Font = new Font("Calibri", 15);
+            this.lblAndar.Font = new Font("Roboto", 15);
 
             this.lblDescricao = new Label();
             this.lblDescricao.Text = "Descrição";
             this.lblDescricao.Location = new Point(110, 200);
             this.lblDescricao.Size = new Size(100, 30);
             this.lblDescricao.ForeColor = Color.Black;
-            this.lblDescricao.Font = new Font("Calibri", 15);
+            this.lblDescricao.Font = new Font("Roboto", 15);
 
             this.lblValor = new Label();
             this.lblValor.Text = "Valor";
             this.lblValor.Location = new Point(360, 200);
             this.lblValor.Size = new Size(60, 30);
             this.lblValor.ForeColor = Color.Black;
-            this.lblValor.Font = new Font("Calibri", 15);
+            this.lblValor.Font = new Font("Roboto", 15);
 
             this.txtNumeroQuarto = new TextBox();
             this.txtNumeroQuarto.Location = new Point(110, 150);
             this.txtNumeroQuarto.Size = new Size(150, 30);
-            this.txtNumeroQuarto.Text = "Digite um número válido";
-            this.txtNumeroQuarto.ForeColor = Color.Black;
 
             this.txtAndar = new TextBox();
             this.txtAndar.Location = new Point(330, 150);
             this.txtAndar.Size = new Size(150, 30);
-            this.txtAndar.Text = "Digite um andar válido";
-            this.txtAndar.ForeColor = Color.Black;
 
             this.txtDescricao = new TextBox();
             this.txtDescricao.Location = new Point(110, 230);
             this.txtDescricao.Size = new Size(220, 30);
-            this.txtDescricao.Text = "Digite uma descrição para o quarto";
-            this.txtDescricao.ForeColor = Color.Black;
 
             this.txtValor = new TextBox();
             this.txtValor.Location = new Point(360, 230);
             this.txtValor.Size = new Size(120, 30);
-            this.txtValor.Text = "Digite o valor";
-            this.txtValor.ForeColor = Color.Black;
 
             this.btCadastrarQuarto = new Button();
             this.btCadastrarQuarto.Text = "Cadastrar Quarto";
@@ -119,8 +111,6 @@ namespace Views
             this.StartPosition = FormStartPosition.CenterScreen;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 420);
-            //this.FormBorderStyle = FormBorderStyle.None;
-            //this.WindowState = FormWindowState.Maximized;
         }
 
          private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
@@ -146,6 +136,12 @@ namespace Views
         {
             this.Close();
         }
+
+        private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
+        {
+            
+        }
+
 
     }
 }
