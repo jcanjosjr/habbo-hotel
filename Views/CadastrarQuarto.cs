@@ -9,6 +9,7 @@ using System.Threading;
 using System.IO;
 using Controllers;
 
+
 namespace Views
 {
     public class CadastrarQuarto : Form
@@ -22,8 +23,9 @@ namespace Views
         TextBox txtAndar;
         TextBox txtDescricao;
         TextBox txtValor;
-        Button btCadastrarQuarto;
+        Button btnCadastrarQuarto;
         Button btVoltar;
+        Button btnimagem;
 
         public CadastrarQuarto()
         {
@@ -82,11 +84,17 @@ namespace Views
             this.txtValor.Location = new Point(360, 230);
             this.txtValor.Size = new Size(120, 30);
 
-            this.btCadastrarQuarto = new Button();
-            this.btCadastrarQuarto.Text = "Cadastrar Quarto";
-            this.btCadastrarQuarto.Location = new Point(170, 300);
-            this.btCadastrarQuarto.Size = new Size(120, 30);
-            this.btCadastrarQuarto.Click += new EventHandler(this.handleConfirmClickInserirQuarto);
+            this.btnCadastrarQuarto = new Button();
+            this.btnCadastrarQuarto.Text = "Cadastrar Quarto";
+            this.btnCadastrarQuarto.Location = new Point(170, 300);
+            this.btnCadastrarQuarto.Size = new Size(120, 30);
+            this.btnCadastrarQuarto.Click += new EventHandler(this.handleConfirmClickInserirQuarto);
+
+            this.btnimagem = new Button();
+            this.btnimagem.Text = "Adicionar imagem";
+            this.btnimagem.Location = new Point(190, 380);
+            this.btnimagem.Size = new Size(120, 30);
+            this.btnimagem.Click += new EventHandler(this.handleConfirmClickImagemQuarto);
 
             this.btVoltar = new Button();
             this.btVoltar.Text = "Voltar";
@@ -105,20 +113,21 @@ namespace Views
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.txtValor);
 
-            this.Controls.Add(this.btCadastrarQuarto);
+            this.Controls.Add(this.btnCadastrarQuarto);
             this.Controls.Add(this.btVoltar);
+            this.Controls.Add(this.btnimagem);
 
             this.StartPosition = FormStartPosition.CenterScreen;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 420);
         }
 
-         private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
+        private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
         {
             try
             {
                 DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
-                
+
                 if (dialogResult == DialogResult.Yes)
                 {
                     Controllers.QuartoController.IncluirQuarto(txtAndar.Text, txtNumeroQuarto.Text, txtDescricao.Text, Convert.ToDouble(txtValor.Text));
@@ -131,10 +140,16 @@ namespace Views
                 MessageBox.Show(err.Message);
             }
         }
-
         private void handleVoltarClick(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void handleConfirmClickImagemQuarto(object sender, EventArgs e)
+        {
+            AdicionarImagem menu = new AdicionarImagem();
+            menu.ShowDialog();
+
         }
     }
 }

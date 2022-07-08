@@ -28,7 +28,6 @@ namespace Views
      
         public AdicionarImagem()
         {
-
             this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
