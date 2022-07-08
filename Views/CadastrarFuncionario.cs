@@ -16,8 +16,7 @@ namespace Views
         Label lblNome;
         Label lblSenha;
         Label lblMatricula;
-        Label lblSenha;
-
+        //Label lblSenha;
         TextBox txtNome;
         TextBox txtMatricula;
         TextBox txtSenha;
@@ -36,8 +35,6 @@ namespace Views
             this.lblTitulo.ForeColor = Color.Green;
             this.lblTitulo.Font = new Font("Roboto", 15);
 
-            //LABEL
-            //PRIMEIRA FILEIRA
             this.lblNome = new Label();
             this.lblNome.Text = "Nome";
             this.lblNome.Location = new Point(190, 70);
@@ -45,12 +42,14 @@ namespace Views
             this.lblNome.ForeColor = Color.Black;
             this.lblNome.Font = new Font("Roboto", 13);
 
+            /*
             this.lblSenha = new Label();
             this.lblSenha.Text = "Senha";
             this.lblSenha.Location = new Point(190, 200);
             this.lblSenha.Size = new Size(100, 30);
             this.lblSenha.ForeColor = Color.Black;
             this.lblSenha.Font = new Font("Calibri", 15);
+            */
 
             this.lblMatricula = new Label();
             this.lblMatricula.Text = "Matrícula";
@@ -59,14 +58,14 @@ namespace Views
             this.lblMatricula.ForeColor = Color.Black;
             this.lblMatricula.Font = new Font("Roboto", 13);
 
-            
-            //Terceira FILEIRA
+            /*
             this.lblSenha = new Label();
             this.lblSenha.Text = "Senha";
             this.lblSenha.Location = new Point(190, 190);
             this.lblSenha.Size = new Size(100, 30);
             this.lblSenha.ForeColor = Color.Black;
             this.lblSenha.Font = new Font("Roboto", 13);
+            */
 
             this.txtNome = new TextBox();
             this.txtNome.Location = new Point(190, 100);
@@ -76,7 +75,6 @@ namespace Views
             this.txtMatricula.Location = new Point(190, 160);
             this.txtMatricula.Size = new Size(220, 30);
 
-            //TERCEIRA FILEIRA
             this.txtSenha = new TextBox();
             this.txtSenha.Location = new Point(190, 220);
             this.txtSenha.Size = new Size(220, 30);
@@ -103,7 +101,7 @@ namespace Views
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.lblNome);
             this.Controls.Add(this.lblMatricula);
-            this.Controls.Add(this.lblSenha);
+            //this.Controls.Add(this.lblSenha);
 
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.txtMatricula);

@@ -136,12 +136,5 @@ namespace Views
         {
             this.Close();
         }
-
-        private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
-        {
-            
-        }
-
-
     }
 }
