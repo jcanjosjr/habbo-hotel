@@ -58,7 +58,7 @@ namespace Views
             this.btnConfirm.Font = new Font("Roboto", 13);
             this.btnConfirm.Location = new Point(800, 500);
             this.btnConfirm.Size = new Size(280, 30);
-            //this.btnConfirm.Click += new EventHandler(this.handleConfirmClick);
+            this.btnConfirm.Click += new EventHandler(this.handleConfirmClick);
 
             this.pbLogo = new PictureBox();
             this.pbLogo.Size = new Size(150, 150);
@@ -93,8 +93,30 @@ namespace Views
         }
         private void handleCadastro(object sender, EventArgs e)
         {
-            CadastrarHospede form = new CadastrarHospede();
+            //CadastrarHospede form = new CadastrarHospede();
+            //form.Show();
+
+            CadastrarFuncionario form = new CadastrarFuncionario();
             form.Show();
         }
+        private void handleConfirmClick(object sender, EventArgs e)
+        {
+            /*
+            Controllers.AuthController.HospedeLogado(txtUser.Text,txtPass.Text);
+            if (!(Models.Hospede.HospedeAuth == null))
+            {
+                ReservarQuarto menu = new ReservarQuarto();
+                menu.ShowDialog();
+            }
+            */
+
+            Controllers.AuthController.ColaboradorLogado(txtUser.Text,txtPass.Text);
+            if (!(Models.Colaborador.ColaboradorAuth == null))
+            {
+                ReservarQuarto menu = new ReservarQuarto();
+                menu.ShowDialog();
+            }
+        }
+        
     }
 }

@@ -13,37 +13,30 @@ namespace Views
 {
     public class CadastrarQuarto : Form
     {
-
         Label lblTitulo;
         Label lblNumeroQuarto;
         Label lblAndar;
         Label lblDescricao;
         Label lblValor;
-
         TextBox txtNumeroQuarto;
         TextBox txtAndar;
         TextBox txtDescricao;
         TextBox txtValor;
-
         Button btCadastrarQuarto;
         Button btVoltar;
-
 
         public CadastrarQuarto()
         {
             this.MinimizeBox = false;
             this.MaximizeBox = false;
 
-            //LABEL
+        
             this.lblTitulo = new Label();
             this.lblTitulo.Text = "Cadastro de Quarto";
             this.lblTitulo.Location = new Point(110, 50);
             this.lblTitulo.Size = new Size(200, 30);
             this.lblTitulo.ForeColor = Color.Green;
             this.lblTitulo.Font = new Font("Roboto", 15);
-
-            //LABEL
-            //PRIMEIRA FILEIRA
 
             this.lblNumeroQuarto = new Label();
             this.lblNumeroQuarto.Text = "Nº do Quarto";
@@ -60,8 +53,6 @@ namespace Views
             this.lblAndar.ForeColor = Color.Black;
             this.lblAndar.Font = new Font("Roboto", 15);
 
-            //SEGUNDA FILEIRA
-
             this.lblDescricao = new Label();
             this.lblDescricao.Text = "Descrição";
             this.lblDescricao.Location = new Point(110, 200);
@@ -76,9 +67,6 @@ namespace Views
             this.lblValor.ForeColor = Color.Black;
             this.lblValor.Font = new Font("Roboto", 15);
 
-            //INPUT
-
-            //PRIMEIRA FILEIRA
             this.txtNumeroQuarto = new TextBox();
             this.txtNumeroQuarto.Location = new Point(110, 150);
             this.txtNumeroQuarto.Size = new Size(150, 30);
@@ -87,8 +75,6 @@ namespace Views
             this.txtAndar.Location = new Point(330, 150);
             this.txtAndar.Size = new Size(150, 30);
 
-
-            //SEGUNDA FILEIRA
             this.txtDescricao = new TextBox();
             this.txtDescricao.Location = new Point(110, 230);
             this.txtDescricao.Size = new Size(220, 30);
@@ -97,7 +83,6 @@ namespace Views
             this.txtValor.Location = new Point(360, 230);
             this.txtValor.Size = new Size(120, 30);
 
-            //BOTÕES
             this.btCadastrarQuarto = new Button();
             this.btCadastrarQuarto.Text = "Cadastrar Quarto";
             this.btCadastrarQuarto.Location = new Point(170, 300);
@@ -127,7 +112,25 @@ namespace Views
             this.StartPosition = FormStartPosition.CenterScreen;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 420);
+        }
 
+         private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
+                
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Controllers.QuartoController.IncluirQuarto(txtAndar.Text, txtNumeroQuarto.Text, txtDescricao.Text, Convert.ToDouble(txtValor.Text));
+                    MessageBox.Show("Quarto cadastrado com sucesso.");
+                    this.Close();
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
 
         private void handleVoltarClick(object sender, EventArgs e)
@@ -135,10 +138,10 @@ namespace Views
             this.Close();
         }
 
-        private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
-        {
-            
-        }
+        //private void handleConfirmClickInserirQuarto(object sender, EventArgs e)
+        //{
+        //    // 
+        //}
 
 
     }

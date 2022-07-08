@@ -23,7 +23,7 @@ namespace Controllers
                 throw new Exception("Campo referente ao Nome esta inválido.");
             }
 
-            if (DataNascimento == null || DataNascimento < DateTime.Now)
+            if (DataNascimento == null || DataNascimento >= DateTime.Now)
             {
                 throw new Exception("A data não pode ser nula ou retroativa.");
             }
@@ -37,8 +37,9 @@ namespace Controllers
                 Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
             }
 
-            Regex regexCpf = new Regex("(^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$)|(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)");
-            if (String.IsNullOrEmpty(CPF) || !regexCpf.IsMatch(CPF))
+            //Regex regexCpf = new Regex("(^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$)|(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)");
+            Regex.Replace(CPF, "[^0-9]", "");
+            if (String.IsNullOrEmpty(CPF)) //|| !regexCpf.IsMatch(CPF))
             {
                 throw new Exception("CPF inválido");
             }

@@ -12,11 +12,11 @@ namespace Views
 {
     public class CadastrarFuncionario : Form
     {
-
         Label lblTitulo;
         Label lblNome;
-        Label lblMatricula;
         Label lblSenha;
+        Label lblMatricula;
+        //Label lblSenha;
 
         TextBox txtNome;
         TextBox txtMatricula;
@@ -25,16 +25,13 @@ namespace Views
         Button btCadastrarFuncionario;
         Button btVoltar;
 
-
         public CadastrarFuncionario()
         {
             this.MinimizeBox = false;
             this.MaximizeBox = false;
 
-            //LABEL
             this.lblTitulo = new Label();
             this.lblTitulo.Text = "Cadastro de Funcionário";
-            this.lblTitulo.Location = new Point(190, 20);
             this.lblTitulo.Size = new Size(230, 30);
             this.lblTitulo.ForeColor = Color.Green;
             this.lblTitulo.Font = new Font("Roboto", 15);
@@ -48,8 +45,12 @@ namespace Views
             this.lblNome.ForeColor = Color.Black;
             this.lblNome.Font = new Font("Roboto", 13);
 
-
-            //SEGUNDA FILEIRA
+            this.lblSenha = new Label();
+            this.lblSenha.Text = "Senha";
+            this.lblSenha.Location = new Point(190, 200);
+            this.lblSenha.Size = new Size(100, 30);
+            this.lblSenha.ForeColor = Color.Black;
+            this.lblSenha.Font = new Font("Calibri", 15);
 
             this.lblMatricula = new Label();
             this.lblMatricula.Text = "Matrícula";
@@ -60,7 +61,6 @@ namespace Views
 
             
             //Terceira FILEIRA
-
             this.lblSenha = new Label();
             this.lblSenha.Text = "Senha";
             this.lblSenha.Location = new Point(190, 190);
@@ -68,15 +68,10 @@ namespace Views
             this.lblSenha.ForeColor = Color.Black;
             this.lblSenha.Font = new Font("Roboto", 13);
 
-            //INPUT
-
-            //PRIMEIRA FILEIRA
             this.txtNome = new TextBox();
             this.txtNome.Location = new Point(190, 100);
             this.txtNome.Size = new Size(220, 30);
 
-
-            //SEGUNDA FILEIRA
             this.txtMatricula = new TextBox();
             this.txtMatricula.Location = new Point(190, 160);
             this.txtMatricula.Size = new Size(220, 30);
@@ -87,8 +82,12 @@ namespace Views
             this.txtSenha.Size = new Size(220, 30);
             this.txtSenha.PasswordChar = '*';
 
+            this.txtSenha = new TextBox();
+            this.txtSenha.Location = new Point(190, 230);
+            this.txtSenha.Size = new Size(220, 30);
+            this.txtSenha.Text = "Crie uma senha";
+            this.txtSenha.ForeColor = Color.Black;
 
-            //BOTÕES
             this.btCadastrarFuncionario = new Button();
             this.btCadastrarFuncionario.Text = "Cadastrar Funcionario";
             this.btCadastrarFuncionario.Location = new Point(160, 300);
@@ -116,7 +115,6 @@ namespace Views
             this.StartPosition = FormStartPosition.CenterScreen;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 420);
-
         }
 
         private void handleVoltarClick(object sender, EventArgs e)
@@ -131,10 +129,9 @@ namespace Views
                 DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                      Controllers.ColaboradorController.CriarColaborador(this.txtNome.Text, this.txtSenha.Text, this.txtMatricula.Text);
+                    Controllers.ColaboradorController.CriarColaborador(this.txtNome.Text, this.txtSenha.Text, this.txtMatricula.Text);
                     MessageBox.Show("Usuário cadastrado com sucesso.");
                 }
-
             }
             catch (Exception err)
             {

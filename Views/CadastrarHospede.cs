@@ -24,12 +24,13 @@ namespace Views
         Label lblNumeroCartao;
         Label lblCvv;
         Label lblValidade;
+
         TextBox txtNome;
         TextBox txtMae;
         TextBox txtNumeroCartao;
         TextBox txtSenhaUser;
         TextBox txtCvv;
-        MaskedTextBox txtCpf;
+        TextBox txtCpf;
         MaskedTextBox txtDataAniversario;
         MaskedTextBox txtValidade;
         PictureBox pbDp;
@@ -56,7 +57,7 @@ namespace Views
             this.lblNome = new Label();
             this.lblNome.Text = "Nome";
             this.lblNome.Location = new Point(600, 150);
-            this.lblNome.Size = new Size(60, 30);
+            this.lblNome.Size = new Size(85, 30);
             this.lblNome.ForeColor = Color.Black;
             this.lblNome.Font = new Font("Roboto", 14);
 
@@ -128,12 +129,11 @@ namespace Views
             this.txtMae.Text = "Digite o nome da sua mãe";
             this.txtMae.ForeColor = Color.Black;
 
-            this.txtCpf = new MaskedTextBox();
+            this.txtCpf = new TextBox();
             this.txtCpf.Location = new Point(1160, 180);
             this.txtCpf.Size = new Size(100, 30);
             this.txtCpf.Text = "Digite seu CPF...";
             this.txtCpf.ForeColor = Color.Black;
-            this.txtCpf.Mask = "000,000,000-00";
 
             this.txtDataAniversario = new MaskedTextBox();
             this.txtDataAniversario.Location = new Point(600, 250);
@@ -229,18 +229,25 @@ namespace Views
             this.Controls.Add(pbBancos);
             this.WindowState = FormWindowState.Maximized;
         }
-         private void handleConfirmClick(object sender, EventArgs e)
+        private void handleConfirmClick(object sender, EventArgs e)
         {
-            if (txtSenhaUser.Text.Length < 8)
+            try
             {
-                MessageBox.Show( "A senha deve ter no minimo 8 caracteres", "Erro", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                DialogResult dialogResult = MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo);
+                
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Controllers.HospedeController.IncluirHospede(txtNome.Text, Convert.ToDateTime(txtDataAniversario.Text), txtCpf.Text,txtSenhaUser.Text, txtNumeroCartao.Text, txtCvv.Text, txtValidade.Text, "credito" , txtMae.Text);
+                    MessageBox.Show("Usuário cadastrado com sucesso.");
+                    this.Close();
+                }
+
             }
-            else
+            catch (Exception err)
             {
-                MessageBox.Show("Dados cadastrados com sucesso", "Sucesso", MessageBoxButtons.OK,MessageBoxIcon.Information ); 
+                MessageBox.Show(err.Message);
             }
         }
-
     }
 
 }
