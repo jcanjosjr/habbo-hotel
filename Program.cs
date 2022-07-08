@@ -11,7 +11,7 @@ public class Program
         // CreateHostBuilder(args).Build().Run();
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        Application.Run(new Views.TelaAdmin());
+        Application.Run(new Views.Login());
     }
 }
 

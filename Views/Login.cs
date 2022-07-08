@@ -96,7 +96,7 @@ namespace Views
             //CadastrarHospede form = new CadastrarHospede();
             //form.Show();
 
-            CadastrarFuncionario form = new CadastrarFuncionario();
+            CadastrarQuarto form = new CadastrarQuarto();
             form.Show();
         }
         private void handleConfirmClick(object sender, EventArgs e)
